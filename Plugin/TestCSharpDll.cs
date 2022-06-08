@@ -17,9 +17,9 @@ namespace MusicBeePlugin
             mbApiInterface = new MusicBeeApiInterface();
             mbApiInterface.Initialise(apiInterfacePtr);
             about.PluginInfoVersion = PluginInfoVersion;
-            about.Name = "Plugin Name";
-            about.Description = "A brief description of what this plugin does";
-            about.Author = "Author";
+            about.Name = "MusicBee JSON Exporter";
+            about.Description = "Exports your MusicBee data for importing into other services";
+            about.Author = "PockyBum522";
             about.TargetApplication = "";   //  the name of a Plugin Storage device or panel header for a dockable panel
             about.Type = PluginType.General;
             about.VersionMajor = 1;  // your plugin version
@@ -75,24 +75,11 @@ namespace MusicBeePlugin
         // you need to set about.ReceiveNotificationFlags = PlayerEvents to receive all notifications, and not just the startup event
         public void ReceiveNotification(string sourceFileUrl, NotificationType type)
         {
-            Console.WriteLine(type.ToString());
-            
-            // perform some action depending on the notification type
-            switch (type)
-            {
-                case NotificationType.PluginStartup:
-                    
-                    var unused = GetAllNonRadioPlayLists();
+            if (type != NotificationType.PluginStartup) return;
 
-                    Console.WriteLine();
+            var unused = GetAllNonRadioPlayLists();
 
-                    break;
-
-                case NotificationType.TrackChanged:
-                    string artist = mbApiInterface.NowPlaying_GetFileTag(MetaDataType.Artist);
-                    // ...
-                    break;
-            }
+            Console.WriteLine();
         }
 
         private List<string> GetAllNonRadioPlayLists()
