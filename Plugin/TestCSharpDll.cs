@@ -75,30 +75,47 @@ namespace MusicBeePlugin
         // you need to set about.ReceiveNotificationFlags = PlayerEvents to receive all notifications, and not just the startup event
         public void ReceiveNotification(string sourceFileUrl, NotificationType type)
         {
+            Console.WriteLine(type.ToString());
             
-            
-            var dbLocation = mbApiInterface.Setting_GetPersistentStoragePath() + "{sep}" + about.Name + ".db";
-            
-            File.WriteAllText(@"D:\Dropbox\Documents\Desktop\info.txt", dbLocation);
-            
-            // // perform some action depending on the notification type
-            // switch (type)
-            // {
-            //     case NotificationType.PluginStartup:
-            //         // perform startup initialisation
-            //         switch (mbApiInterface.Player_GetPlayState())
-            //         {
-            //             case PlayState.Playing:
-            //             case PlayState.Paused:
-            //                 // ...
-            //                 break;
-            //         }
-            //         break;
-            //     case NotificationType.TrackChanged:
-            //         string artist = mbApiInterface.NowPlaying_GetFileTag(MetaDataType.Artist);
-            //         // ...
-            //         break;
-            // }
+            // perform some action depending on the notification type
+            switch (type)
+            {
+                case NotificationType.PluginStartup:
+                    
+                    var unused = GetAllNonRadioPlayLists();
+
+                    Console.WriteLine();
+
+                    break;
+
+                case NotificationType.TrackChanged:
+                    string artist = mbApiInterface.NowPlaying_GetFileTag(MetaDataType.Artist);
+                    // ...
+                    break;
+            }
+        }
+
+        private List<string> GetAllNonRadioPlayLists()
+        {
+            var allPlaylistUris = new List<string>();
+
+            mbApiInterface.Playlist_QueryPlaylists();
+
+            var currentPlaylistUri = mbApiInterface.Playlist_QueryGetNextPlaylist(); 
+
+            while (currentPlaylistUri != null)
+            {
+                var currentPlaylistType = mbApiInterface.Playlist_GetType(currentPlaylistUri);
+
+                if (currentPlaylistType != PlaylistFormat.Radio)
+                {
+                    allPlaylistUris.Add(currentPlaylistUri);
+                }
+                
+                currentPlaylistUri = mbApiInterface.Playlist_QueryGetNextPlaylist();
+            }
+
+            return allPlaylistUris;
         }
 
         // return an array of lyric or artwork provider names this plugin supports
