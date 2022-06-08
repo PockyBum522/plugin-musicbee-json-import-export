@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using System.Collections.Generic;
+using JetBrains.Annotations;
 
 namespace MusicBeePlugin
 {
+    [PublicAPI]
     public partial class Plugin
     {
         public const short PluginInfoVersion = 1;

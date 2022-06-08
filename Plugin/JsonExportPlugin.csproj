@@ -8,7 +8,7 @@
     <ProjectGuid>{F5D46BA1-6F21-40EF-9695-46105CCACD08}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MusicBeeJsonExportPlugin</RootNamespace>
+    <RootNamespace>MusicBeePlugin</RootNamespace>
     <AssemblyName>mb_JsonExportPlugin</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -62,7 +62,7 @@ for /F "delims=" %%i in ('dir /b') do (rmdir "%%i" /s/q || del "%%i" /s/q)
 </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>xcopy /s C:\Users\David\source\repos\MusicBeeJsonExportImportPlugin\Plugin\bin\Debug\ C:\Users\David\AppData\Roaming\MusicBee\Plugins\</PostBuildEvent>
+    <PostBuildEvent>xcopy /s C:\Users\David\source\repos\MusicBeeJsonExportImportPlugin\Plugin\bin\x86\Debug\ C:\Users\David\AppData\Roaming\MusicBee\Plugins\</PostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -72,13 +72,11 @@ for /F "delims=" %%i in ('dir /b') do (rmdir "%%i" /s/q || del "%%i" /s/q)
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MusicBeeInterface.cs" />
-    <Compile Include="PlaylistHelper.cs" />
-    <Compile Include="TestCSharpDll.cs" />
+    <Compile Include="JsonPluginMain.cs" />
+    <Compile Include="MusicBeeApi\MusicBeeInterface.cs" />
+    <Compile Include="MusicBeeApi\MusicBeeMainEntryPoint.cs" />
+    <Compile Include="PlaylistHelpers\PlaylistHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
@@ -101,6 +99,9 @@ for /F "delims=" %%i in ('dir /b') do (rmdir "%%i" /s/q || del "%%i" /s/q)
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="JetBrains.Annotations" Version="2022.1.0" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
