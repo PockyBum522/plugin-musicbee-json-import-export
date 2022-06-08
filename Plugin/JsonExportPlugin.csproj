@@ -69,6 +69,18 @@
     <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
   </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>; Delete all files in musicbee plugins folder
+
+set folder="C:\Users\David\AppData\Roaming\MusicBee\Plugins"
+cd /d %folder%
+for /F "delims=" %%i in ('dir /b') do (rmdir "%%i" /s/q || del "%%i" /s/q)
+
+</PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /s C:\Users\David\source\repos\MusicBeeJsonExportImportPlugin\Plugin\bin\Debug C:\Users\David\AppData\Roaming\MusicBee\Plugins</PostBuildEvent>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
