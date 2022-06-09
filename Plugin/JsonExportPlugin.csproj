@@ -73,9 +73,13 @@ for /F "delims=" %%i in ('dir /b') do (rmdir "%%i" /s/q || del "%%i" /s/q)
   </ItemGroup>
   <ItemGroup>
     <Compile Include="JsonPluginMain.cs" />
+    <Compile Include="Logic\ModelLoaders.cs" />
+    <Compile Include="Logic\TrackFetcher.cs" />
+    <Compile Include="Models\Playlist.cs" />
+    <Compile Include="Models\Track.cs" />
     <Compile Include="MusicBeeApi\MusicBeeInterface.cs" />
     <Compile Include="MusicBeeApi\MusicBeeMainEntryPoint.cs" />
-    <Compile Include="PlaylistHelpers\PlaylistHelper.cs" />
+    <Compile Include="Logic\PlaylistHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -102,6 +106,8 @@ for /F "delims=" %%i in ('dir /b') do (rmdir "%%i" /s/q || del "%%i" /s/q)
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="2022.1.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="TagLibSharp" Version="2.2.0" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
