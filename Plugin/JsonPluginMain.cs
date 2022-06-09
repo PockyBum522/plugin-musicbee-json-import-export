@@ -1,5 +1,7 @@
 ﻿using System;
-using MusicBeePlugin.PlaylistHelpers;
+using System.IO;
+using MusicBeePlugin.Logic;
+using Newtonsoft.Json;
 
 namespace MusicBeePlugin
 {
@@ -17,20 +19,23 @@ namespace MusicBeePlugin
             if (InvalidEventType(mbEventType)) return;
             
             // Otherwise:
-            var playlistHelpers = new PlaylistHelper(_mbApi);
+            SerializePlaylistsToFile(@"D:\Dropbox\Documents\Desktop\playlists.json");
+        }
 
-            var playlists = playlistHelpers.GetAllNonRadioPlayListUris();
+        private void SerializePlaylistsToFile(string outputPath)
+        {
+            var modelLoaders = new ModelLoaders(_mbApi);
 
-            Console.WriteLine();
+            var playlists = modelLoaders.LoadAllPlaylists();
+
+            var serializedPlaylists = JsonConvert.SerializeObject(playlists, Formatting.Indented);
+
+            File.WriteAllText(outputPath, serializedPlaylists);
         }
 
         private bool InvalidEventType(Plugin.NotificationType mbEventType)
         {
-            if (mbEventType != Plugin.NotificationType.PluginStartup &&
-                mbEventType != Plugin.NotificationType.PlaylistUpdated &&
-                mbEventType != Plugin.NotificationType.PlaylistCreated &&
-                mbEventType != Plugin.NotificationType.PlaylistDeleted
-               ) return false;
+            if (mbEventType != Plugin.NotificationType.PluginStartup) return false;
 
             return true;
         }
