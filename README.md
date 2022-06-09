@@ -1,4 +1,4 @@
-# MusicBeeJsonExportImportPlugin
+# Music Bee Json Export/Import Plugin
 Simple plugin to export MusicBee playlists as JSON
 
 The plugin currently loads on MusicBee startup and outputs all playlists in MusicBee to a JSON file.
