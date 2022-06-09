@@ -17,4 +17,6 @@ In the JSON file it exports, you can see that it is an array of playlists. Each 
 
 (AlbumArtist is intentionally blank in my tags, but I know many people use it, so I included it.)
 
+Rating is from 0 - 100, with five stars being 100. 4.5 stars in MusicBee comes out as 90.
+
 And then of course the tracks in said playlist continue until the next playlist in the JSON file.
